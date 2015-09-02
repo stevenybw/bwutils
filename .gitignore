@@ -26,3 +26,7 @@
 *.exe
 *.out
 *.app
+
+# Output file
+*.log
+*_RESULT_*

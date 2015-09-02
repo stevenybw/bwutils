@@ -1,9 +1,19 @@
+#!/usr/bin/env python
+
 #INPUT: ${FOLDER}/PREFIX.$PROCESSNUM.*
 #OUTPUT: dot-formatted communication graph
 import re
+import sys
 
-FOLDER = ".\\20150819"
-PROCESS_NUM = 64
+_PROCESS_NUM = None
+
+if len(sys.argv) <=1:
+	_PROCESS_NUM = raw_input('INPUT PROCESS NUMBER(DEFAULT=64): ')
+else:
+	_PROCESS_NUM = sys.argv[1]
+
+FOLDER = "."
+PROCESS_NUM = int(_PROCESS_NUM) if len(_PROCESS_NUM)>0 else 64
 PREFIX = "bcast." + str(PROCESS_NUM)
 COLORS = ['#ffffff','#ff8888','#88ff88','#8888ff']
 result = list()
@@ -24,7 +34,7 @@ def parse(S, T):
     return result
     
 for idx in range(PROCESS_NUM):
-    f = open(FOLDER + "\\" + PREFIX + ".%d.log" % idx)
+    f = open(FOLDER + "/" + PREFIX + ".%d.log" % idx)
     S = f.read()
     result.append(parse(S, 'SEND'))
 
